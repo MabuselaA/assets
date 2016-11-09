@@ -1,0 +1,68 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
+      xmlns:h="http://xmlns.jcp.org/jsf/html"
+      xmlns:f="http://xmlns.jcp.org/jsf/core">
+
+    <ui:composition template="/template.xhtml">
+        <ui:define name="title">
+            <h:outputText value="#{bundle.ListAssetsTitle}"></h:outputText>
+        </ui:define>
+        <ui:define name="body">
+            <h:form styleClass="jsfcrud_list_form">
+                <h:panelGroup id="messagePanel" layout="block">
+                    <h:messages errorStyle="color: red" infoStyle="color: green" layout="table"/>
+                </h:panelGroup>
+                <h:outputText escape="false" value="#{bundle.ListAssetsEmpty}" rendered="#{assetsController.items.rowCount == 0}"/>
+                <h:panelGroup rendered="#{assetsController.items.rowCount > 0}">
+                    <h:outputText value="#{assetsController.pagination.pageFirstItem + 1}..#{assetsController.pagination.pageLastItem + 1}/#{assetsController.pagination.itemsCount}"/>&nbsp;
+                    <h:commandLink action="#{assetsController.previous}" value="#{bundle.Previous} #{assetsController.pagination.pageSize}" rendered="#{assetsController.pagination.hasPreviousPage}"/>&nbsp;
+                    <h:commandLink action="#{assetsController.next}" value="#{bundle.Next} #{assetsController.pagination.pageSize}" rendered="#{assetsController.pagination.hasNextPage}"/>&nbsp;
+                    <h:dataTable value="#{assetsController.items}" var="item" border="0" cellpadding="2" cellspacing="0" rowClasses="jsfcrud_odd_row,jsfcrud_even_row" rules="all" style="border:solid 1px">
+                        <h:column>
+                            <f:facet name="header">
+                                <h:outputText value="#{bundle.ListAssetsTitle_assetID}"/>
+                            </f:facet>
+                            <h:outputText value="#{item.assetID}"/>
+                        </h:column>
+                        <h:column>
+                            <f:facet name="header">
+                                <h:outputText value="#{bundle.ListAssetsTitle_assetType}"/>
+                            </f:facet>
+                            <h:outputText value="#{item.assetType}"/>
+                        </h:column>
+                        <h:column>
+                            <f:facet name="header">
+                                <h:outputText value="#{bundle.ListAssetsTitle_availabitliy}"/>
+                            </f:facet>
+                            <h:outputText value="#{item.availabitliy}"/>
+                        </h:column>
+                        <h:column>
+                            <f:facet name="header">
+                                <h:outputText value="#{bundle.ListAssetsTitle_location}"/>
+                            </f:facet>
+                            <h:outputText value="#{item.location}"/>
+                        </h:column>
+                        <h:column>
+                            <f:facet name="header">
+                                <h:outputText value="&nbsp;"/>
+                            </f:facet>
+                            <h:commandLink action="#{assetsController.prepareView}" value="#{bundle.ListAssetsViewLink}"/>
+                            <h:outputText value=" "/>
+                            <h:commandLink action="#{assetsController.prepareEdit}" value="#{bundle.ListAssetsEditLink}"/>
+                            <h:outputText value=" "/>
+                            <h:commandLink action="#{assetsController.destroy}" value="#{bundle.ListAssetsDestroyLink}"/>
+                        </h:column>
+                    </h:dataTable>
+                </h:panelGroup>
+                <br />
+                <h:commandLink action="#{assetsController.prepareCreate}" value="#{bundle.ListAssetsCreateLink}"/>
+                <br />
+                <br />
+                <h:link outcome="/index" value="#{bundle.ListAssetsIndexLink}"/>
+            </h:form>
+        </ui:define>
+    </ui:composition>
+
+</html>

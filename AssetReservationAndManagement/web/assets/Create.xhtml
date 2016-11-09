@@ -1,0 +1,39 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
+      xmlns:h="http://xmlns.jcp.org/jsf/html"
+      xmlns:f="http://xmlns.jcp.org/jsf/core">
+
+    <ui:composition template="/template.xhtml">
+        <ui:define name="title">
+            <h:outputText value="#{bundle.CreateAssetsTitle}"></h:outputText>
+        </ui:define>
+        <ui:define name="body">
+            <h:panelGroup id="messagePanel" layout="block">
+                <h:messages errorStyle="color: red" infoStyle="color: green" layout="table"/>
+            </h:panelGroup>
+            <h:form>
+                <h:panelGrid columns="2">
+                    <h:outputLabel value="#{bundle.CreateAssetsLabel_assetID}" for="assetID" />
+                    <h:inputText id="assetID" value="#{assetsController.selected.assetID}" title="#{bundle.CreateAssetsTitle_assetID}" required="true" requiredMessage="#{bundle.CreateAssetsRequiredMessage_assetID}"/>
+                    <h:outputLabel value="#{bundle.CreateAssetsLabel_assetType}" for="assetType" />
+                    <h:inputText id="assetType" value="#{assetsController.selected.assetType}" title="#{bundle.CreateAssetsTitle_assetType}" required="true" requiredMessage="#{bundle.CreateAssetsRequiredMessage_assetType}"/>
+                    <h:outputLabel value="#{bundle.CreateAssetsLabel_availabitliy}" for="availabitliy" />
+                    <h:inputText id="availabitliy" value="#{assetsController.selected.availabitliy}" title="#{bundle.CreateAssetsTitle_availabitliy}" required="true" requiredMessage="#{bundle.CreateAssetsRequiredMessage_availabitliy}"/>
+                    <h:outputLabel value="#{bundle.CreateAssetsLabel_location}" for="location" />
+                    <h:inputText id="location" value="#{assetsController.selected.location}" title="#{bundle.CreateAssetsTitle_location}" required="true" requiredMessage="#{bundle.CreateAssetsRequiredMessage_location}"/>
+                </h:panelGrid>
+                <br />
+                <h:commandLink action="#{assetsController.create}" value="#{bundle.CreateAssetsSaveLink}" />
+                <br />
+                <br />
+                <h:commandLink action="#{assetsController.prepareList}" value="#{bundle.CreateAssetsShowAllLink}" immediate="true"/>
+                <br />
+                <br />
+                <h:link outcome="/index" value="#{bundle.CreateAssetsIndexLink}"/>
+            </h:form>
+        </ui:define>
+    </ui:composition>
+
+</html>

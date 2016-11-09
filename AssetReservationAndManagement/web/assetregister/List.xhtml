@@ -1,0 +1,78 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
+      xmlns:h="http://xmlns.jcp.org/jsf/html"
+      xmlns:f="http://xmlns.jcp.org/jsf/core">
+
+    <ui:composition template="/template.xhtml">
+        <ui:define name="title">
+            <h:outputText value="#{bundle.ListAssetregisterTitle}"></h:outputText>
+        </ui:define>
+        <ui:define name="body">
+            <h:form styleClass="jsfcrud_list_form">
+                <h:panelGroup id="messagePanel" layout="block">
+                    <h:messages errorStyle="color: red" infoStyle="color: green" layout="table"/>
+                </h:panelGroup>
+                <h:outputText escape="false" value="#{bundle.ListAssetregisterEmpty}" rendered="#{assetregisterController.items.rowCount == 0}"/>
+                <h:panelGroup rendered="#{assetregisterController.items.rowCount > 0}">
+                    <h:outputText value="#{assetregisterController.pagination.pageFirstItem + 1}..#{assetregisterController.pagination.pageLastItem + 1}/#{assetregisterController.pagination.itemsCount}"/>&nbsp;
+                    <h:commandLink action="#{assetregisterController.previous}" value="#{bundle.Previous} #{assetregisterController.pagination.pageSize}" rendered="#{assetregisterController.pagination.hasPreviousPage}"/>&nbsp;
+                    <h:commandLink action="#{assetregisterController.next}" value="#{bundle.Next} #{assetregisterController.pagination.pageSize}" rendered="#{assetregisterController.pagination.hasNextPage}"/>&nbsp;
+                    <h:dataTable value="#{assetregisterController.items}" var="item" border="0" cellpadding="2" cellspacing="0" rowClasses="jsfcrud_odd_row,jsfcrud_even_row" rules="all" style="border:solid 1px">
+                        <h:column>
+                            <f:facet name="header">
+                                <h:outputText value="#{bundle.ListAssetregisterTitle_serialNumber}"/>
+                            </f:facet>
+                            <h:outputText value="#{item.serialNumber}"/>
+                        </h:column>
+                        <h:column>
+                            <f:facet name="header">
+                                <h:outputText value="#{bundle.ListAssetregisterTitle_dateAcquired}"/>
+                            </f:facet>
+                            <h:outputText value="#{item.dateAcquired}">
+                                <f:convertDateTime pattern="MM/dd/yyyy" />
+                            </h:outputText>
+                        </h:column>
+                        <h:column>
+                            <f:facet name="header">
+                                <h:outputText value="#{bundle.ListAssetregisterTitle_dateRegistered}"/>
+                            </f:facet>
+                            <h:outputText value="#{item.dateRegistered}">
+                                <f:convertDateTime pattern="MM/dd/yyyy" />
+                            </h:outputText>
+                        </h:column>
+                        <h:column>
+                            <f:facet name="header">
+                                <h:outputText value="#{bundle.ListAssetregisterTitle_marketValue}"/>
+                            </f:facet>
+                            <h:outputText value="#{item.marketValue}"/>
+                        </h:column>
+                        <h:column>
+                            <f:facet name="header">
+                                <h:outputText value="#{bundle.ListAssetregisterTitle_assetID}"/>
+                            </f:facet>
+                            <h:outputText value="#{item.assetID}"/>
+                        </h:column>
+                        <h:column>
+                            <f:facet name="header">
+                                <h:outputText value="&nbsp;"/>
+                            </f:facet>
+                            <h:commandLink action="#{assetregisterController.prepareView}" value="#{bundle.ListAssetregisterViewLink}"/>
+                            <h:outputText value=" "/>
+                            <h:commandLink action="#{assetregisterController.prepareEdit}" value="#{bundle.ListAssetregisterEditLink}"/>
+                            <h:outputText value=" "/>
+                            <h:commandLink action="#{assetregisterController.destroy}" value="#{bundle.ListAssetregisterDestroyLink}"/>
+                        </h:column>
+                    </h:dataTable>
+                </h:panelGroup>
+                <br />
+                <h:commandLink action="#{assetregisterController.prepareCreate}" value="#{bundle.ListAssetregisterCreateLink}"/>
+                <br />
+                <br />
+                <h:link outcome="/index" value="#{bundle.ListAssetregisterIndexLink}"/>
+            </h:form>
+        </ui:define>
+    </ui:composition>
+
+</html>

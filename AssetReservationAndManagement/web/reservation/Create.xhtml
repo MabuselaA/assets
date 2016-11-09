@@ -1,0 +1,51 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
+      xmlns:h="http://xmlns.jcp.org/jsf/html"
+      xmlns:f="http://xmlns.jcp.org/jsf/core">
+
+    <ui:composition template="/template.xhtml">
+        <ui:define name="title">
+            <h:outputText value="#{bundle.CreateReservationTitle}"></h:outputText>
+        </ui:define>
+        <ui:define name="body">
+            <h:panelGroup id="messagePanel" layout="block">
+                <h:messages errorStyle="color: red" infoStyle="color: green" layout="table"/>
+            </h:panelGroup>
+            <h:form>
+                <h:panelGrid columns="2">
+                    <h:outputLabel value="#{bundle.CreateReservationLabel_resNo}" for="resNo" />
+                    <h:inputText id="resNo" value="#{reservationController.selected.resNo}" title="#{bundle.CreateReservationTitle_resNo}" required="true" requiredMessage="#{bundle.CreateReservationRequiredMessage_resNo}"/>
+                    <h:outputLabel value="#{bundle.CreateReservationLabel_checkIn}" for="checkIn" />
+                    <h:inputText id="checkIn" value="#{reservationController.selected.checkIn}" title="#{bundle.CreateReservationTitle_checkIn}" required="true" requiredMessage="#{bundle.CreateReservationRequiredMessage_checkIn}">
+                        <f:convertDateTime pattern="MM/dd/yyyy HH:mm:ss" />
+                    </h:inputText>
+                    <h:outputLabel value="#{bundle.CreateReservationLabel_checkOut}" for="checkOut" />
+                    <h:inputText id="checkOut" value="#{reservationController.selected.checkOut}" title="#{bundle.CreateReservationTitle_checkOut}" >
+                        <f:convertDateTime pattern="MM/dd/yyyy HH:mm:ss" />
+                    </h:inputText>
+                    <h:outputLabel value="#{bundle.CreateReservationLabel_isCancelled}" for="isCancelled" />
+                    <h:inputText id="isCancelled" value="#{reservationController.selected.isCancelled}" title="#{bundle.CreateReservationTitle_isCancelled}" required="true" requiredMessage="#{bundle.CreateReservationRequiredMessage_isCancelled}"/>
+                    <h:outputLabel value="#{bundle.CreateReservationLabel_assetID}" for="assetID" />
+                    <h:selectOneMenu id="assetID" value="#{reservationController.selected.assetID}" title="#{bundle.CreateReservationTitle_assetID}" required="true" requiredMessage="#{bundle.CreateReservationRequiredMessage_assetID}">
+                        <f:selectItems value="#{assetsController.itemsAvailableSelectOne}"/>
+                    </h:selectOneMenu>
+                    <h:outputLabel value="#{bundle.CreateReservationLabel_employeeNumber}" for="employeeNumber" />
+                    <h:selectOneMenu id="employeeNumber" value="#{reservationController.selected.employeeNumber}" title="#{bundle.CreateReservationTitle_employeeNumber}" required="true" requiredMessage="#{bundle.CreateReservationRequiredMessage_employeeNumber}">
+                        <f:selectItems value="#{employeeController.itemsAvailableSelectOne}"/>
+                    </h:selectOneMenu>
+                </h:panelGrid>
+                <br />
+                <h:commandLink action="#{reservationController.create}" value="#{bundle.CreateReservationSaveLink}" />
+                <br />
+                <br />
+                <h:commandLink action="#{reservationController.prepareList}" value="#{bundle.CreateReservationShowAllLink}" immediate="true"/>
+                <br />
+                <br />
+                <h:link outcome="/index" value="#{bundle.CreateReservationIndexLink}"/>
+            </h:form>
+        </ui:define>
+    </ui:composition>
+
+</html>

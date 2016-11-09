@@ -1,0 +1,48 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
+      xmlns:h="http://xmlns.jcp.org/jsf/html"
+      xmlns:f="http://xmlns.jcp.org/jsf/core">
+
+    <ui:composition template="/template.xhtml">
+        <ui:define name="title">
+            <h:outputText value="#{bundle.EditAssetregisterTitle}"></h:outputText>
+        </ui:define>
+        <ui:define name="body">
+            <h:panelGroup id="messagePanel" layout="block">
+                <h:messages errorStyle="color: red" infoStyle="color: green" layout="table"/>
+            </h:panelGroup>
+            <h:form>
+                <h:panelGrid columns="2">
+                    <h:outputLabel value="#{bundle.EditAssetregisterLabel_serialNumber}" for="serialNumber" />
+                    <h:inputText id="serialNumber" value="#{assetregisterController.selected.serialNumber}" title="#{bundle.EditAssetregisterTitle_serialNumber}" required="true" requiredMessage="#{bundle.EditAssetregisterRequiredMessage_serialNumber}"/>
+                    <h:outputLabel value="#{bundle.EditAssetregisterLabel_dateAcquired}" for="dateAcquired" />
+                    <h:inputText id="dateAcquired" value="#{assetregisterController.selected.dateAcquired}" title="#{bundle.EditAssetregisterTitle_dateAcquired}" >
+                        <f:convertDateTime pattern="MM/dd/yyyy" />
+                    </h:inputText>
+                    <h:outputLabel value="#{bundle.EditAssetregisterLabel_dateRegistered}" for="dateRegistered" />
+                    <h:inputText id="dateRegistered" value="#{assetregisterController.selected.dateRegistered}" title="#{bundle.EditAssetregisterTitle_dateRegistered}" >
+                        <f:convertDateTime pattern="MM/dd/yyyy" />
+                    </h:inputText>
+                    <h:outputLabel value="#{bundle.EditAssetregisterLabel_marketValue}" for="marketValue" />
+                    <h:inputText id="marketValue" value="#{assetregisterController.selected.marketValue}" title="#{bundle.EditAssetregisterTitle_marketValue}" />
+                    <h:outputLabel value="#{bundle.EditAssetregisterLabel_assetID}" for="assetID" />
+                    <h:selectOneMenu id="assetID" value="#{assetregisterController.selected.assetID}" title="#{bundle.EditAssetregisterTitle_assetID}" required="true" requiredMessage="#{bundle.EditAssetregisterRequiredMessage_assetID}">
+                        <f:selectItems value="#{assetsController.itemsAvailableSelectOne}"/>
+                    </h:selectOneMenu>
+                </h:panelGrid>
+                <h:commandLink action="#{assetregisterController.update}" value="#{bundle.EditAssetregisterSaveLink}"/>
+                <br />
+                <br />
+                <h:link outcome="View" value="#{bundle.EditAssetregisterViewLink}"/>
+                <br />
+                <h:commandLink action="#{assetregisterController.prepareList}" value="#{bundle.EditAssetregisterShowAllLink}" immediate="true"/>
+                <br />
+                <br />
+                <h:link outcome="/index" value="#{bundle.EditAssetregisterIndexLink}" />
+            </h:form>
+        </ui:define>
+    </ui:composition>
+
+</html>
